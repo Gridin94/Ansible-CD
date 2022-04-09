@@ -1,16 +1,16 @@
 ---
     # Stop and delete all running services by pm2.
     # Assuming only one app running on the machine.
-      # - name: "Stop & delete all"
-      #   shell: pm2 delete all
-      #   args: 
-      #     chdir: '{{ homeDir }}/{{ appDir }}'
+      - name: "Stop & delete all"
+        shell: pm2 delete all
+        args: 
+          chdir: '{{ homeDir }}'
 
     # Clean dest directory
-      # - name: "Delete destination dir"
-      #   file:
-      #     state: absent
-      #     path: '{{ homeDir }}/{{ appDir }}'
+      - name: "Delete destination dir"
+        file:
+          state: absent
+          path: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Recreate empty direcoty"
         file:
@@ -28,17 +28,31 @@
           dest: '{{ homeDir }}/{{ appDir }}'
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
+        register: setenv_finished
 
     # Install nodemon to overcome missing files
       - name: "install nodemon"
         shell: npm install --save-dev nodemon@2
         args: 
           chdir: '{{ homeDir }}/{{ appDir }}'
+
+      - name: "init npm"
+        shell: npm i
+        args:
+          chdir: '{{ homeDir }}/{{ appDir }}'
+
+      - name: Initialize db
+        shell: npm run initdb
+        ars:
+          chdir: /home/azureuser/bootcamp-app/
+        when: setenv_finished.changed
+        register: initdb_finished
         
       - name: Start APP
         shell: pm2 start npm -- run dev 
         args: 
           chdir: '{{ homeDir }}/{{ appDir }}'
+        when: initdb_finished.changed
         register: start_finished
 
       - name: Save PM2 configuration
