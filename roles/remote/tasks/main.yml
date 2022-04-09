@@ -19,7 +19,7 @@
 
       - name: Copy and unarchive artifact file
         unarchive:
-          src: '{{ homeDir }}/{{ appDir }}'
+          src: '{{ homeDir }}'
           dest: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Template a file"
