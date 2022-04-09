@@ -17,6 +17,9 @@
           state: directory
           path: '{{ homeDir }}/{{ appDir }}'
 
+      - name: "install unzip"
+        shell: apt-get install unzip
+
       - name: Copy and unarchive artifact file
         unarchive:
           src: '/home/azureuser/myagent/_work/1/a/{{ appDir }}'
