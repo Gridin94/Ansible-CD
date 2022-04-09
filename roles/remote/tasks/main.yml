@@ -19,7 +19,7 @@
 
       - name: Copy and unarchive artifact file
         unarchive:
-          src: '_work/1/a/{{ appDir }}'
+          src: '/home/azureuser/myagent/_work/1/a/{{ appDir }}'
           dest: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Template a file"
