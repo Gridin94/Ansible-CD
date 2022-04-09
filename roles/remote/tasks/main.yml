@@ -1,4 +1,16 @@
 ---
+      - name: "Update all apt packages"
+        apt: upgrade=dist force_apt_get=yes
+
+      - name: "Install nodejs"
+        apt:
+          update_cache: yes
+          name: nodejs
+          state: present
+
+      - name: "Update nodejs package"
+        shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+
     # Stop and delete all running services by pm2.
     # Assuming only one app running on the machine.
       # - name: "Stop & delete all"
