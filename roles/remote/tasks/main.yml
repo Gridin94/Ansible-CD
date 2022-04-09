@@ -54,6 +54,12 @@
         shell: npm i
         args:
           chdir: '{{ homeDir }}/{{ appDir }}'
+
+      - name: "Install PM2"
+        npm:
+          name: pm2
+          global: yes
+          state: present
         
       - name: Start APP
         shell: pm2 start npm -- run dev 
