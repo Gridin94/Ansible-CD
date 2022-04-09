@@ -1,2 +1,10 @@
-10.0.1.5 ansible_connection=ssh ansible_user=azureuser ansible_pass=Aa123456
-10.0.1.4 ansible_connection=ssh ansible_user=azureuser ansible_pass=Aa123456
+[staging]
+10.0.1.5
+10.0.1.4
+
+
+[servers:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_connection=ssh
+ansible_user=azureuser
+ansible_ssh_pass=Aa123456
