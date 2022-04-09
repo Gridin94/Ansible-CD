@@ -44,16 +44,10 @@
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
 
-    # Install nodemon to overcome missing files
-      - name: "install nodemon"
-        shell: npm install nodemon --save-dev
-        args: 
+      - name: "init npm"
+        shell: sudo npm i
+        args:
           chdir: '{{ homeDir }}/{{ appDir }}'
-
-      # - name: "init npm"
-      #   shell: sudo npm i
-      #   args:
-      #     chdir: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Install PM2"
         npm:
