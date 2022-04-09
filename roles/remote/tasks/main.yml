@@ -1,16 +1,16 @@
 ---
     # Stop and delete all running services by pm2.
     # Assuming only one app running on the machine.
-      - name: "Stop & delete all"
-        shell: pm2 delete all
-        args: 
-          chdir: '{{ homeDir }}/{{ appDir }}'
+      # - name: "Stop & delete all"
+      #   shell: pm2 delete all
+      #   args: 
+      #     chdir: '{{ homeDir }}/{{ appDir }}'
 
     # Clean dest directory
-      - name: "Delete destination dir"
-        file:
-          state: absent
-          path: '{{ homeDir }}/{{ appDir }}'
+      # - name: "Delete destination dir"
+      #   file:
+      #     state: absent
+      #     path: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Recreate empty direcoty"
         file:
