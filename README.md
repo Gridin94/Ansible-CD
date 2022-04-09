@@ -74,7 +74,6 @@ __example:__
 
 
 The Production deployment stage is activated when a user with permissions approves the deployment after a successful deployment in the Staging environment.
-In addition, the artifact that are deployed on the environment are exactly the same as the files that were deployed in the previous stage.(when the pipeline runs, the files that were on the Agent are not deleted)
 
 
 
