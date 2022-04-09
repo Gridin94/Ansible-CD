@@ -2,5 +2,5 @@
   - name: Create a zip archive 
     archive:
       path: '{{ artifact_path }}'
-      dest: '{{ homeDir }}/{{ appDir }}'
+      dest: '{{ artifact_path }}/{{ appDir }}'
       format: zip
