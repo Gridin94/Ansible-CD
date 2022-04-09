@@ -1,2 +1,2 @@
-10.0.1.5 ansible_connection=ssh ansible_user=vagrant ansible_pass=vagrant
-10.0.1.4 ansible_connection=ssh ansible_user=vagrant ansible_pass=vagrant
+10.0.1.5 ansible_connection=ssh ansible_user=azureuser ansible_pass=Aa123456
+10.0.1.4 ansible_connection=ssh ansible_user=azureuser ansible_pass=Aa123456
