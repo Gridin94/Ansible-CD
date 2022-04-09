@@ -1,2 +1,2 @@
-10.0.1.5
-10.0.1.4
+10.0.1.5 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+10.0.1.4 ansible_connection=ssh ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
