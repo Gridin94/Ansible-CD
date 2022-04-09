@@ -11,13 +11,6 @@
       - name: "Update nodejs package"
         shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 
-    # Stop and delete all running services by pm2.
-    # Assuming only one app running on the machine.
-      # - name: "Stop & delete all"
-      #   shell: pm2 delete all
-      #   args: 
-      #     chdir: '{{ homeDir }}'
-
     # Clean dest directory
       - name: "Delete destination dir"
         file:

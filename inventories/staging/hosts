@@ -5,5 +5,5 @@
 [staging:vars]
 ansible_python_interpreter=/usr/bin/python3
 ansible_connection=ssh
-ansible_user=azureuser
-ansible_ssh_pass=Aa123456
+ansible_user={{ USER }}
+ansible_ssh_pass={{ PASS }}
