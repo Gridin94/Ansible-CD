@@ -1,4 +1,9 @@
 ---
+      - name: Create a zip archive 
+        archive:
+          path: '{{ artifact_path }}'
+          dest: '{{ artifact_path }}{{ appDir }}'
+          format: zip
     # Stop and delete all running services by pm2.
     # Assuming only one app running on the machine.
       - name: "Stop & delete all"
