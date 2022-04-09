@@ -50,10 +50,10 @@
         args: 
           chdir: '{{ homeDir }}/{{ appDir }}'
 
-      - name: "init npm"
-        shell: sudo npm i
-        args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
+      # - name: "init npm"
+      #   shell: sudo npm i
+      #   args:
+      #     chdir: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Install PM2"
         npm:
