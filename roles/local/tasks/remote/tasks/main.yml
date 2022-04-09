@@ -1,0 +1,55 @@
+---
+    # Stop and delete all running services by pm2.
+    # Assuming only one app running on the machine.
+      - name: "Stop & delete all"
+        shell: pm2 delete all
+        args: 
+          chdir: '{{ homeDir }}/{{ appDir }}'
+
+    # Clean dest directory
+      - name: "Delete destination dir"
+        file:
+          state: absent
+          path: '{{ homeDir }}/{{ appDir }}'
+
+      - name: "Recreate empty direcoty"
+        file:
+          state: directory
+          path: '{{ homeDir }}/{{ appDir }}'
+
+      - name: Copy and unarchive artifact file
+        unarchive:
+          src: '{{ artifact_path }}{{ appDir }}'
+          dest: '{{ homeDir }}/{{ appDir }}'
+
+      - name: "Template a file"
+        template:
+          src: './.env'
+          dest: '{{ homeDir }}/{{ appDir }}'
+          owner: '{{ user }}'
+          mode: u=r,g=r,o=r
+
+    # Install nodemon to overcome missing files
+      - name: "install nodemon"
+        shell: npm install --save-dev nodemon@2
+        args: 
+          chdir: '{{ homeDir }}/{{ appDir }}'
+        
+      - name: Start APP
+        shell: pm2 start npm -- run dev 
+        args: 
+          chdir: '{{ homeDir }}/{{ appDir }}'
+        register: start_finished
+
+      - name: Save PM2 configuration
+        shell: pm2 save
+        args:
+          chdir: '{{ homeDir }}/{{ appDir }}'
+        when: start_finished.changed
+        register: save_finished
+
+      - name: Create PM2 startup script
+        shell: pm2 startup
+        args:
+          chdir: '{{ homeDir }}/{{ appDir }}'
+        when: save_finished.changed

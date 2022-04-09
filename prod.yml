@@ -1,0 +1,6 @@
+- name : apply the production servers configuration
+  hosts: all
+  become: true
+
+  roles:
+          - remote

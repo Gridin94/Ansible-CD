@@ -1,0 +1,6 @@
+---
+  - name: Create a zip archive 
+    archive:
+      path: '{{ artifact_path }}'
+      dest: '{{ artifact_path }}/{{ appDir }}'
+      format: zip

@@ -1,0 +1,28 @@
+trigger:
+
+- master
+
+pool:
+  my_pool
+
+steps:
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '$(Build.SourcesDirectory)'
+ 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+  displayName: 'Stage Artifacts'
+
+- task: UniversalPackages@0
+  inputs:
+    command: 'publish'
+    publishDirectory: '$(Build.ArtifactStagingDirectory)'
+    feedsToUsePublish: 'internal'
+    vstsFeedPublish: 'f541cc7a-c2ba-42aa-97f4-28f6e28cc0d5/79dacb46-7c49-4752-95c0-55ecc1ae0291'
+    vstsFeedPackagePublish: 'artifact'
+    versionOption: 'patch'

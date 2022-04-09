@@ -1,0 +1,4 @@
+# enviroment variables
+homeDir: /home/azureuser # Home directory
+appDir : bootcamp-app # App directory
+user: azureuser # User name
