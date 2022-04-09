@@ -46,7 +46,7 @@
 
     # Install nodemon to overcome missing files
       - name: "install nodemon"
-        shell: npm install
+        shell: npm install --save-dev nodemon@2
         args: 
           chdir: '{{ homeDir }}/{{ appDir }}'
 
