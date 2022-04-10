@@ -27,7 +27,7 @@
 
       - name: Copy and unarchive artifact file
         unarchive:
-          src: '{{ artifact_path }}'
+          src: '{{ artifact_path }}zippedApp.zip'
           dest: '{{ homeDir }}/{{ appDir }}'
 
       - name: "Template a file"
