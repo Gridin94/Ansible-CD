@@ -1,6 +1,6 @@
----
-  - name: Create a zip archive 
-    archive:
-      path: '/home/azureuser/myagent/_work/1/a/'
-      dest: '/home/azureuser/myagent/_work/1/a/{{ appDir }}'
-      format: zip
+# ---
+  # - name: Create a zip archive 
+  #   archive:
+  #     path: '/home/azureuser/myagent/_work/1/a/'
+  #     dest: '/home/azureuser/myagent/_work/1/a/{{ appDir }}'
+  #     format: zip

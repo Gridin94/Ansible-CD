@@ -2,14 +2,14 @@
       - name: "Update all apt packages"
         apt: upgrade=dist force_apt_get=yes
 
-      # - name: "Install nodejs"
-      #   apt:
-      #     update_cache: yes
-      #     name: nodejs
-      #     state: present
+      - name: "Install nodejs"
+        apt:
+          update_cache: yes
+          name: nodejs
+          state: present
 
-      # - name: "Update nodejs package"
-      #   shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+      - name: "Update nodejs package"
+        shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 
     # Clean dest directory
       - name: "Delete destination dir"
@@ -33,14 +33,14 @@
       - name: "Template a file"
         template:
           src: './.env'
-          dest: '{{ homeDir }}/{{ appDir }}'
+          dest: '{{ homeDir }}/{{ appDir }}/s'
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
 
-      # - name: "init npm"
-      #   shell: sudo npm i
-      #   args:
-      #     chdir: '{{ homeDir }}/{{ appDir }}'
+      - name: "init npm"
+        shell: sudo npm i
+        args:
+          chdir: '{{ homeDir }}/{{ appDir }}/s'
 
       - name: "Install PM2"
         npm:
@@ -51,18 +51,18 @@
       - name: Start APP
         shell: sudo pm2 start npm -- run dev 
         args: 
-          chdir: '{{ homeDir }}/{{ appDir }}'
+          chdir: '{{ homeDir }}/{{ appDir }}/s'
         register: start_finished
 
       - name: Save PM2 configuration
         shell: sudo pm2 save
         args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
+          chdir: '{{ homeDir }}/{{ appDir }}/s'
         when: start_finished.changed
         register: save_finished
 
       - name: Create PM2 startup script
         shell: sudo pm2 startup
         args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
+          chdir: '{{ homeDir }}/{{ appDir }}/s'
         when: save_finished.changed
