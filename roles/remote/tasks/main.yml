@@ -54,14 +54,12 @@
           name: pm2
           global: yes
           state: present
-        when: node_finished.changed
-        register: pm2_finished
+        # when: node_finished.changed
         
       - name: Start APP
         shell: pm2 start npm -- run dev
         args: 
           chdir: '{{ homeDir }}/{{ appDir }}/s'
-        when: pm2_finished.changed
         register: start_finished
 
       - name: Save PM2 configuration
@@ -69,10 +67,10 @@
         args:
           chdir: '{{ homeDir }}/{{ appDir }}/s'
         when: start_finished.changed
-        register: save_finished
+        # register: save_finished
 
       - name: Create PM2 startup script
         shell: pm2 startup
         args:
           chdir: '{{ homeDir }}/{{ appDir }}/s'
-        when: save_finished.changed
+        # when: save_finished.changed
