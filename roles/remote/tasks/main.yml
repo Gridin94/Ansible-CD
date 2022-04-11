@@ -1,15 +1,15 @@
 ---
-      - name: "Update all apt packages"
-        apt: upgrade=dist force_apt_get=yes
+      # - name: "Update all apt packages"
+      #   apt: upgrade=dist force_apt_get=yes
 
-      - name: "Install nodejs"
-        apt:
-          update_cache: yes
-          name: nodejs
-          state: present
+      # - name: "Install nodejs"
+      #   apt:
+      #     update_cache: yes
+      #     name: nodejs
+      #     state: present
 
-      - name: "Update nodejs package"
-        shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
+      # - name: "Update nodejs package"
+      #   shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
 
     # Clean dest directory
       - name: "Delete destination dir"
@@ -37,18 +37,18 @@
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
 
-      - name: "init npm"
-        shell: sudo npm i
-        args:
-          chdir: '{{ homeDir }}/{{ appDir }}/s'
-        register: npm_finished
+      # - name: "init npm"
+      #   shell: sudo npm i
+      #   args:
+      #     chdir: '{{ homeDir }}/{{ appDir }}/s'
+      #   register: npm_finished
 
       - name: "Install PM2"
         npm:
           name: pm2
           global: yes
           state: present
-        when: npm_finished.changed
+        # when: npm_finished.changed
         register: pm2_finished
         
       - name: Start APP
