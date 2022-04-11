@@ -37,6 +37,11 @@
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
 
+      - name: "Install nodemon"
+        shell: npm install nodemon
+        args:
+          chdir: '{{ homeDir }}/{{ appDir }}/s'
+
       # - name: "init npm"
       #   shell: sudo npm i
       #   args:
