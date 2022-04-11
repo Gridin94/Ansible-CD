@@ -49,6 +49,12 @@
       #     chdir: '{{ homeDir }}/{{ appDir }}/s'
       #   register: npm_finished
 
+      - name: "Init DB"
+        shell: npm run initdb
+        args:
+          chdir: '{{ homeDir }}/{{ appDir }}/s'
+        run_once: true
+      
       - name: "Install PM2"
         npm:
           name: pm2
