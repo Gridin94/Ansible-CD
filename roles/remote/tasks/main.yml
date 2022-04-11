@@ -41,6 +41,7 @@
         shell: npm install nodemon
         args:
           chdir: '{{ homeDir }}/{{ appDir }}/s'
+        register: node_finished
 
       # - name: "init npm"
       #   shell: sudo npm i
@@ -53,7 +54,7 @@
           name: pm2
           global: yes
           state: present
-        # when: npm_finished.changed
+        when: node_finished.changed
         register: pm2_finished
         
       - name: Start APP
