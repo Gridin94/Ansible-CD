@@ -1,16 +1,4 @@
 ---
-      # - name: "Update all apt packages"
-      #   apt: upgrade=dist force_apt_get=yes
-
-      # - name: "Install nodejs"
-      #   apt:
-      #     update_cache: yes
-      #     name: nodejs
-      #     state: present
-
-      # - name: "Update nodejs package"
-      #   shell: curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-
     # Clean dest directory
       - name: "Delete destination dir"
         file:
@@ -33,26 +21,20 @@
       - name: "Template a file"
         template:
           src: './.env'
-          dest: '{{ homeDir }}/{{ appDir }}/s'
+          dest: '{{ homeDir }}/{{ appDir }}'
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
 
       - name: "Install nodemon"
         shell: npm install nodemon
         args:
-          chdir: '{{ homeDir }}/{{ appDir }}/s'
+          chdir: '{{ homeDir }}/{{ appDir }}'
         register: node_finished
-
-      # - name: "init npm"
-      #   shell: sudo npm i
-      #   args:
-      #     chdir: '{{ homeDir }}/{{ appDir }}/s'
-      #   register: npm_finished
 
       - name: "Init DB"
         shell: npm run initdb
         args:
-          chdir: '{{ homeDir }}/{{ appDir }}/s'
+          chdir: '{{ homeDir }}/{{ appDir }}'
         run_once: true
       
       - name: "Install PM2"
@@ -60,23 +42,27 @@
           name: pm2
           global: yes
           state: present
-        # when: node_finished.changed
-        
+
+    # Stop and delete all running services by pm2.
+    # Assuming only one app running on the machine.
+      - name: "Stop & delete all"
+        shell: pm2 delete all
+        args: 
+          chdir: '{{ homeDir }}/{{ appDir }}'
+
       - name: Start APP
         shell: pm2 start npm -- run dev
         args: 
-          chdir: '{{ homeDir }}/{{ appDir }}/s'
+          chdir: '{{ homeDir }}/{{ appDir }}'
         register: start_finished
 
       - name: Save PM2 configuration
         shell: pm2 save
         args:
-          chdir: '{{ homeDir }}/{{ appDir }}/s'
+          chdir: '{{ homeDir }}/{{ appDir }}'
         when: start_finished.changed
-        # register: save_finished
 
       - name: Create PM2 startup script
         shell: pm2 startup
         args:
-          chdir: '{{ homeDir }}/{{ appDir }}/s'
-        # when: save_finished.changed
+          chdir: '{{ homeDir }}/{{ appDir }}'

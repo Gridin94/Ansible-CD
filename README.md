@@ -38,13 +38,18 @@ __Before using this project the following files should be edited:__
 __Read documentation in source files.__
 #
 ## Continuous Integration
-The YAML `ci.yml` responsible for the CI pipeline.
 
 __steps:__
 
 1. Install npm in the source directory.
 
+1. Build npm in the source directory.
+
+1. Remove unnesecery files.
+
 1. Copy the files to the artifacts directory.
+
+1. Archive the files.
 
 1. Publish it to Azure DevOps artifacts.
 
