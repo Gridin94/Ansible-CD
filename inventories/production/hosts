@@ -1,7 +1,7 @@
 [prod]
-10.0.1.5
-10.0.1.4
-10.0.1.6
+{{ IP1 }}
+{{ IP2 }}
+{{ IP3 }}
 
 [prod:vars]
 ansible_python_interpreter=/usr/bin/python3

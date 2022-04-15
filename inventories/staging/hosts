@@ -1,6 +1,6 @@
 [staging]
-10.0.1.5
-10.0.1.4
+{{ IP1 }}
+{{ IP2 }}
 
 [staging:vars]
 ansible_python_interpreter=/usr/bin/python3
