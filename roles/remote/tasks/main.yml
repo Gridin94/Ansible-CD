@@ -1,61 +1,25 @@
 ---
-    # Clean dest directory
-      - name: "Delete destination dir"
-        file:
-          state: absent
-          path: '{{ homeDir }}/{{ appDir }}'
+      - name: "login to registry"
+        shell: docker login -u {{ registry_username }} -p {{ registry_password }} {{ containerRegistry }}
+      
+      - name: "stop container"
+        shell: docker rm -f {{ imageRepository }} || true
 
-      - name: "Recreate empty direcoty"
-        file:
-          state: directory
-          path: '{{ homeDir }}/{{ appDir }}'
+      # - name: "docker pull"
+      #   shell: docker pull {{ containerRegistry }}/{{ imageRepository }}:{{ TAG }} #
 
-      - name: "install unzip"
-        shell: apt-get install unzip
-
-      - name: Copy and unarchive artifact file
-        unarchive:
-          src: '{{ artifact_path }}_weightzippedApp.zip'
-          dest: '{{ homeDir }}/{{ appDir }}'
-
+      - name: "docker run"
+        shell: docker run -d --restart=always --name {{ imageRepository }} -p 8080:8080 {{ containerRegistry }}/{{ imageRepository }}:{{ tag }}
+    
       - name: "Template a file"
         template:
           src: './.env'
-          dest: '{{ homeDir }}/{{ appDir }}'
+          dest: '{{ homeDir }}'
           owner: '{{ user }}'
           mode: u=r,g=r,o=r
 
-      - name: "Install nodemon"
-        shell: npm install nodemon
-        args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
-        register: node_finished
+      - name: "copy env to docker"
+        shell: docker cp {{ homeDir }}/.env {{ imageRepository }}:bootcamp-app\.env
 
-      - name: "Init DB"
-        shell: npm run initdb
-        args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
-        run_once: true
-      
-      - name: "Install PM2"
-        npm:
-          name: pm2
-          global: yes
-          state: present
-
-      - name: Start APP
-        shell: pm2 start npm -- run dev
-        args: 
-          chdir: '{{ homeDir }}/{{ appDir }}'
-        register: start_finished
-
-      - name: Save PM2 configuration
-        shell: pm2 save
-        args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
-        when: start_finished.changed
-
-      - name: Create PM2 startup script
-        shell: pm2 startup
-        args:
-          chdir: '{{ homeDir }}/{{ appDir }}'
+      - name: "docker restart"
+        shell: docker restart {{ imageRepository }}
