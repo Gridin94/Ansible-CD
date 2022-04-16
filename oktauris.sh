@@ -1,11 +1,11 @@
 #!/bin/sh
 
-oktaurl = "$1"
+OKTAURL = $1
 OKTACLIENT = $2
 OKTAKEY = $3
 HOSTIP = $4
 
-curl --location --request PUT $1'//api/v1/apps/'$OKTACLIENT \
+curl --location --request PUT $OKTAURL'//api/v1/apps/'$OKTACLIENT \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: SSWS $OKTAKEY' \
@@ -15,17 +15,17 @@ curl --location --request PUT $1'//api/v1/apps/'$OKTACLIENT \
     "credentials": {
         "oauthClient": {
             "autoKeyRotation": true,
-            "client_id": "$OKTACLIENT",
+            "client_id": '"$OKTACLIENT"',
             "token_endpoint_auth_method": "client_secret_basic"
         }
     },
     "settings": {
         "oauthClient": {
             "redirect_uris": [
-                "http://$HOSTIP:8080/authorization-code/callback"
+                "http://'$HOSTIP':8080/authorization-code/callback"
             ],
             "post_logout_redirect_uris": [
-                "http://$HOSTIP:8080/logout"
+                "http://'$HOSTIP':8080/logout"
             ],
             "response_types": [
                 "code"
