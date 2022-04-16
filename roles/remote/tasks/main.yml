@@ -3,7 +3,7 @@
         shell: apt update
 
       - name: "install docker"
-        shell: apt install docker.io
+        shell: apt install docker.io -y
 
       - name: "change mode"
         shell: chmod 666 /var/run/docker.sock
@@ -28,7 +28,7 @@
           mode: u=r,g=r,o=r
 
       - name: "copy env to docker"
-        shell: docker cp {{ homeDir }}/.env {{ IMAGEREPOSITORY }}:bootcamp-app\.env
+        shell: docker cp {{ homeDir }}/.env {{ IMAGEREPOSITORY }}/bootcamp-app:.env
 
       - name: "docker restart"
         shell: docker restart {{ IMAGEREPOSITORY }}
