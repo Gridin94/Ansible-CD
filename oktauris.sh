@@ -1,11 +1,11 @@
 #!/bin/sh
 
-OKTAURL = ${1}
+oktaurl = ${1}
 OKTACLIENT = ${2}
 OKTAKEY = ${3}
 HOSTIP = ${4}
 
-curl --location --request PUT $OKTAURL'//api/v1/apps/'$OKTACLIENT \
+curl --location --request PUT $oktaurl'//api/v1/apps/'$OKTACLIENT \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: SSWS $OKTAKEY' \
