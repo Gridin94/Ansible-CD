@@ -10,7 +10,7 @@
 
   - name: "update okta uris"
     shell: |
-      curl --location --request PUT 'https://{{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}
+      curl --location --request PUT https://{{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}
       --header 'Accept: application/json'
       --header 'Content-Type: application/json'
       --header 'Authorization: SSWS {{ OKTAKEY }}'
