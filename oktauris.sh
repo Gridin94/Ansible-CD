@@ -5,17 +5,17 @@
 # OKTAKEY = $3
 # HOSTIP = $4
 
-curl --location --request PUT $1'//api/v1/apps/'$2 \
---header 'Accept: application/json' \
---header 'Content-Type: application/json' \
---header 'Authorization: SSWS '$3 \
+curl --location --request PUT "$1//api/v1/apps/$2" \
+--header "Accept: application/json" \
+--header "Content-Type: application/json" \
+--header "Authorization: SSWS $3" \
 --data-raw '{
     "name": "oidc_client",
     "label": "Node Weight Tracker",
     "credentials": {
         "oauthClient": {
             "autoKeyRotation": true,
-            "client_id": '"$2"',
+            "client_id": "'$2'",
             "token_endpoint_auth_method": "client_secret_basic"
         }
     },
