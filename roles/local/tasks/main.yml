@@ -6,4 +6,4 @@
     shell: sudo apt install curl -y
 
   - name: "run script to update okta uris"
-    script: Ansible-CD/oktauris.sh
+    script: oktauris.sh
