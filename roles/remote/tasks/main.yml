@@ -1,15 +1,15 @@
 ---
       - name: "login to registry"
-        shell: docker login -u {{ registry_username }} -p {{ registry_password }} {{ containerRegistry }}
+        shell: docker login -u {{ RUSER }} -p {{ RPASS }} {{ CONTAINERREGISTRY }}
       
       - name: "stop container"
-        shell: docker rm -f {{ imageRepository }} || true
+        shell: docker rm -f {{ IMAGEREPOSITORY }} || true
 
       # - name: "docker pull"
-      #   shell: docker pull {{ containerRegistry }}/{{ imageRepository }}:{{ TAG }} #
+      #   shell: docker pull {{ CONTAINERREGISTRY }}/{{ IMAGEREPOSITORY }}:{{ TAG }} #
 
       - name: "docker run"
-        shell: docker run -d --restart=always --name {{ imageRepository }} -p 8080:8080 {{ containerRegistry }}/{{ imageRepository }}:{{ tag }}
+        shell: docker run -d --restart=always --name {{ IMAGEREPOSITORY }} -p 8080:8080 {{ CONTAINERREGISTRY }}/{{ IMAGEREPOSITORY }}:{{ TAG }}
     
       - name: "Template a file"
         template:
@@ -19,7 +19,7 @@
           mode: u=r,g=r,o=r
 
       - name: "copy env to docker"
-        shell: docker cp {{ homeDir }}/.env {{ imageRepository }}:bootcamp-app\.env
+        shell: docker cp {{ homeDir }}/.env {{ IMAGEREPOSITORY }}:bootcamp-app\.env
 
       - name: "docker restart"
-        shell: docker restart {{ imageRepository }}
+        shell: docker restart {{ IMAGEREPOSITORY }}

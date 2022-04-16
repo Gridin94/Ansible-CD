@@ -1,6 +1,6 @@
 [staging]
-{{ IP1 }}
-{{ IP2 }}
+"{{ IP1 }}"
+10.0.1.5
 
 [staging:vars]
 ansible_python_interpreter=/usr/bin/python3
