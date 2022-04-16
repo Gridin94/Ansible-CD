@@ -1,4 +1,13 @@
 ---
+      - name: "update packages"
+        shell: apt update
+
+      - name: "install docker"
+        shell: apt install docker.io
+
+      - name: "change mode"
+        shell: chmod 666 /var/run/docker.sock
+
       - name: "login to registry"
         shell: docker login -u {{ RUSER }} -p {{ RPASS }} {{ CONTAINERREGISTRY }}
       
