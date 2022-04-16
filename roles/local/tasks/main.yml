@@ -10,10 +10,10 @@
 
   - name: "update okta uris"
     shell: |
-      'curl --location --request PUT 'https://{{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}' \
-      --header 'Accept: application/json' \
-      --header 'Content-Type: application/json' \
-      --header 'Authorization: SSWS {{ OKTAKEY }}' \
+      'curl --location --request PUT 'https://{{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}'
+      --header 'Accept: application/json'
+      --header 'Content-Type: application/json'
+      --header 'Authorization: SSWS {{ OKTAKEY }}'
       --data-raw '{
           "name": "oidc_client",
           "label": "Node Weight Tracker",
