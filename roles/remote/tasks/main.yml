@@ -29,3 +29,6 @@
 
   - name: "docker restart"
     shell: docker restart {{ IMAGEREPOSITORY }}
+
+  # - name: "init database"
+  #   shell: docker exec -it {{ IMAGEREPOSITORY }} npm run initdb

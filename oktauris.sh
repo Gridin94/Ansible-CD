@@ -1,10 +1,5 @@
 #!/bin/sh
 
-# OKTAURL = $1
-# OKTACLIENT = $2
-# OKTAKEY = $3
-# HOSTIP = $4
-
 curl --location --request PUT "$1//api/v1/apps/$2" \
 --header "Accept: application/json" \
 --header "Content-Type: application/json" \
