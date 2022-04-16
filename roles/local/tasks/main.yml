@@ -1,12 +1,12 @@
 ---
   - name: "update packages"
-    shell: sudo apt update
+    shell: apt update
 
   - name: "install curl"
-    shell: sudo apt install curl -y
+    shell: apt install curl -y
 
   - name: "run script to update okta uris"
-    script: oktauris.sh "{{ OKTAURL }}" "{{ OKTACLIENT }}" "{{ OKTAKEY }}" "{{ HOSTIP }}"
+    script: oktauris.sh {{ OKTAURL }} {{ OKTACLIENT }} {{ OKTAKEY }} {{ HOSTIP }}
 
   # - name: "update okta uris"
   #   shell: |

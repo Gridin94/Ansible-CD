@@ -1,5 +1,6 @@
 - name : apply local configuration
   hosts: localhost
+  become: true
 
   roles:
           - local
