@@ -5,39 +5,45 @@
   - name: "install curl"
     shell: sudo apt install curl -y
 
-  # - name: "run script to update okta uris"
-  #   script: oktauris.sh --${HOSTIP}
+  - name: "run script to update okta uris"
+    script: oktauris.sh "{{ OKTAURL }}" "{{ OKTACLIENT }}" "{{ OKTAKEY }}" "{{ HOSTIP }}"
 
-  - name: "update okta uris"
-    shell: |
-      curl --location --request PUT {{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}
-      --header 'Accept: application/json'
-      --header 'Content-Type: application/json'
-      --header 'Authorization: SSWS {{ OKTAKEY }}'
-      --data-raw '{
-          "name": "oidc_client",
-          "label": "Node Weight Tracker",
-          "credentials": {
-              "oauthClient": {
-                  "autoKeyRotation": true,
-                  "client_id": "{{ OKTACLIENT }}",
-                  "token_endpoint_auth_method": "client_secret_basic"
-              }
-          },
-          "settings": {
-              "oauthClient": {
-                  "redirect_uris": [
-                      "http://{{ HOSTIP }}:8080/authorization-code/callback"
-                  ],
-                  "post_logout_redirect_uris": [
-                      "http://{{ HOSTIP }}:8080/logout"
-                  ],
-                  "response_types": [
-                      "code"
-                  ],
-                  "application_type": "web",
-                  "consent_method": "REQUIRED",
-                  "issuer_mode": "DYNAMIC"
-              }
-          }
-      }'
+  # - name: "update okta uris"
+  #   shell: |
+  #     curl --location --request PUT {{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}
+  #     --header 'Accept: application/json'
+  #     --header 'Content-Type: application/json'
+  #     --header 'Authorization: SSWS {{ OKTAKEY }}'
+  #     --data-raw '{
+  #         "name": "oidc_client",
+  #         "label": "Node Weight Tracker",
+  #         "credentials": {
+  #             "oauthClient": {
+  #                 "autoKeyRotation": true,
+  #                 "client_id": "{{ OKTACLIENT }}",
+  #                 "token_endpoint_auth_method": "client_secret_basic"
+  #             }
+  #         },
+  #         "settings": {
+  #             "oauthClient": {
+  #                 "redirect_uris": [
+  #                     "http://{{ HOSTIP }}:8080/authorization-code/callback"
+  #                 ],
+  #                 "post_logout_redirect_uris": [
+  #                     "http://{{ HOSTIP }}:8080/logout"
+  #                 ],
+  #                 "response_types": [
+  #                     "code"
+  #                 ],
+  #                 "application_type": "web",
+  #                 "consent_method": "REQUIRED",
+  #                 "issuer_mode": "DYNAMIC"
+  #             }
+  #         }
+  #     }'
+
+  # - name: "api"
+  #   uri:
+  #     url: '{{ OKTAURL }}//api/v1/apps/{{ OKTACLIENT }}'
+  #     method: PUT
+  #     body_format: json
