@@ -1,3 +1,9 @@
+- name : apply local configuration
+  hosts: localhost
+
+  roles:
+          - local
+
 - name : apply the staging servers configuration
   hosts: all
   become: true

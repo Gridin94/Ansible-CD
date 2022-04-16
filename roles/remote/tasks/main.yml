@@ -1,34 +1,31 @@
 ---
-      - name: "update packages"
-        shell: apt update
+  - name: "update packages"
+    shell: apt update
 
-      - name: "install docker"
-        shell: apt install docker.io -y
+  - name: "install docker"
+    shell: apt install docker.io -y
 
-      - name: "change mode"
-        shell: chmod 666 /var/run/docker.sock
+  - name: "change mode"
+    shell: chmod 666 /var/run/docker.sock
 
-      - name: "login to registry"
-        shell: docker login -u {{ RUSER }} -p {{ RPASS }} {{ CONTAINERREGISTRY }}
-      
-      - name: "stop container"
-        shell: docker rm -f {{ IMAGEREPOSITORY }} || true
+  - name: "login to registry"
+    shell: docker login -u {{ RUSER }} -p {{ RPASS }} {{ CONTAINERREGISTRY }}
+  
+  - name: "stop container"
+    shell: docker rm -f {{ IMAGEREPOSITORY }} || true
 
-      # - name: "docker pull"
-      #   shell: docker pull {{ CONTAINERREGISTRY }}/{{ IMAGEREPOSITORY }}:{{ TAG }} #
+  - name: "docker run"
+    shell: docker run -d --restart=always --name {{ IMAGEREPOSITORY }} -p 8080:8080 {{ CONTAINERREGISTRY }}/{{ IMAGEREPOSITORY }}:{{ TAG }}
 
-      - name: "docker run"
-        shell: docker run -d --restart=always --name {{ IMAGEREPOSITORY }} -p 8080:8080 {{ CONTAINERREGISTRY }}/{{ IMAGEREPOSITORY }}:{{ TAG }}
-    
-      - name: "Template a file"
-        template:
-          src: './.env'
-          dest: '{{ homeDir }}'
-          owner: '{{ user }}'
-          mode: u=r,g=r,o=r
+  - name: "Template a file"
+    template:
+      src: './.env'
+      dest: '{{ homeDir }}'
+      owner: '{{ user }}'
+      mode: u=r,g=r,o=r
 
-      - name: "copy env to docker"
-        shell: docker cp {{ homeDir }}/.env {{ IMAGEREPOSITORY }}:bootcamp-app/.env
+  - name: "copy env to docker"
+    shell: docker cp {{ homeDir }}/.env {{ IMAGEREPOSITORY }}:bootcamp-app/.env
 
-      - name: "docker restart"
-        shell: docker restart {{ IMAGEREPOSITORY }}
+  - name: "docker restart"
+    shell: docker restart {{ IMAGEREPOSITORY }}
