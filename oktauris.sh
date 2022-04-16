@@ -5,7 +5,7 @@ OKTACLIENT = $2
 OKTAKEY = $3
 HOSTIP = $4
 
-curl --location --request PUT $oktaurl'//api/v1/apps/'$OKTACLIENT \
+curl --location --request PUT $1'//api/v1/apps/'$OKTACLIENT \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: SSWS $OKTAKEY' \
