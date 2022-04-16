@@ -1,6 +1,6 @@
 #!/bin/sh
 
-oktaurl = $1
+oktaurl = "$1"
 OKTACLIENT = $2
 OKTAKEY = $3
 HOSTIP = $4
