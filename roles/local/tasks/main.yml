@@ -1,9 +1,9 @@
 ---
   - name: "update packages"
-    shell: apt update
+    shell: sudo apt update
 
   - name: "install curl"
-    shell: apt install curl -y
+    shell: sudo apt install curl -y
 
   - name: "run script to update okta uris"
     script: Ansible-CD/oktauris.sh
